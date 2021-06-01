@@ -1,34 +1,32 @@
 {
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
+    "implicitDependencies": {
+        "package.json": {
+            "dependencies": "*",
+            "devDependencies": "*"
+        },
+        ".eslintrc.json": "*"
     },
-    ".eslintrc.json": "*"
-  },
-  "affected": {
-    "defaultBase": "master"
-  },
-  "npmScope": "ads",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "NWUwOTJmNjYtNGUyYy00ZGUwLThmZjUtZmEyNGE2NWY2MzdmfHJlYWQtd3JpdGU=",
-        "canTrackAnalytics": false,
-        "showUsageWarnings": true
-      }
+    "affected": {
+        "defaultBase": "master"
+    },
+    "npmScope": "ads",
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "@nrwl/nx-cloud",
+            "options": {
+                "cacheableOperations": ["build", "lint", "test", "e2e"],
+                "accessToken": "NWUwOTJmNjYtNGUyYy00ZGUwLThmZjUtZmEyNGE2NWY2MzdmfHJlYWQtd3JpdGU=",
+                "canTrackAnalytics": false,
+                "showUsageWarnings": true
+            }
+        }
+    },
+    "projects": {
+        "node": {
+            "tags": []
+        },
+        "utils": {
+            "tags": []
+        }
     }
-  },
-  "projects": {
-    "node": {
-      "tags": []
-    }
-  }
 }
