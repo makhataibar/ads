@@ -1,1 +1,1 @@
-export * from './compose/compose'
+export * from './compose/compose';
