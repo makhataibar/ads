@@ -5,10 +5,13 @@ export type Input = string;
 export type Output = boolean;
 
 function validate(s: Input): Input {
-  return (
-    yup.string().min(1).max(Math.pow(10, 4)).matches(/[a-z]/).validateSync(s) ??
-    validate(s)
-  );
+  return yup
+    .string()
+    .min(1)
+    .max(Math.pow(10, 4))
+    .matches(/[a-z]/)
+    .defined()
+    .validateSync(s);
 }
 
 function main(s: Input): Output {
