@@ -1,10 +1,32 @@
+import { isUndefined } from 'lodash';
+
 export class Random {
   /**
    *
    * @param length
    * @param of
+   * @param isUniq
    */
-  static array<T>({ length = 10, of }: RandomArrayOptions<T>): T[] {
+  static array<T>({ length = 10, of, isUniq }: RandomArrayOptions<T>): T[] {
+    if (!isUndefined(isUniq)) {
+      if (isUniq) {
+        const uniqArray: T[] = [];
+
+        while (uniqArray.length !== length) {
+          const el = of();
+
+          if (!uniqArray.includes(el)) {
+            uniqArray.push(el);
+          }
+        }
+
+        return uniqArray;
+      }
+
+      const repeatableEl = of();
+      return Array.from(Array(length), () => repeatableEl);
+    }
+
     return Array.from(Array(length), () => of());
   }
 
@@ -31,6 +53,7 @@ interface RandomNumberOptions {
 }
 
 interface RandomArrayOptions<T> {
-  length?: number;
   of: () => T;
+  length?: number;
+  isUniq?: boolean;
 }
