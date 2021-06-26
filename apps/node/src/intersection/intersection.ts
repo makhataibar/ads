@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { pipe } from '@ads/utils';
+import { pipe, intersection as _intersection } from '@ads/utils';
 
 export type Input = { nums1: number[]; nums2: number[] };
 export type Output = number[];
@@ -25,15 +25,7 @@ function checkConstraints(input: Input): Input {
 }
 
 function main({ nums1, nums2 }: Input): Output {
-  return nums1.filter((num1) => {
-    const num2Index = nums2.indexOf(num1);
-    if (num2Index === -1) {
-      return false;
-    }
-
-    nums2.splice(num2Index, 1);
-    return true;
-  });
+  return _intersection(nums1, nums2);
 }
 
 export const intersection = pipe<Input, Output>(checkConstraints, main);
