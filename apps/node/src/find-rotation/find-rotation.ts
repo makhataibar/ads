@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { pipe } from '@ads/utils';
+import { pipe, rotateMatrix } from '@ads/utils';
 
 export type Input = { mat: number[][]; target: number[][] };
 export type Output = boolean;
@@ -54,22 +54,8 @@ function checkConstraints(input: Input): Input {
 }
 
 function main({ mat, target }: Input): Output {
-  function rotate(matrix: number[][]) {
-    const rotatedMatrix: number[][] = Array.from(Array(matrix.length), () =>
-      Array.from(Array(matrix.length))
-    );
-
-    matrix.forEach((array, i) => {
-      array.forEach((num, j) => {
-        rotatedMatrix[j][matrix.length - 1 - i] = num;
-      });
-    });
-
-    return rotatedMatrix;
-  }
-
   for (let i = 0; i < 4; i++) {
-    const rotatedMat = rotate(mat);
+    const rotatedMat = rotateMatrix(mat);
     if (JSON.stringify(rotatedMat) === JSON.stringify(target)) {
       return true;
     } else {

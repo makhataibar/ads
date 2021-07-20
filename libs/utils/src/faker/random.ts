@@ -66,7 +66,6 @@ interface RandomNumberOptions {
   min?: number;
   max?: number;
   excludes?: number[];
-  int?: boolean;
 }
 
 interface RandomArrayOptions<T> {
