@@ -31,25 +31,42 @@ export class Random {
   }
 
   static number(options?: RandomNumberOptions): number {
-    if (options?.min && !options?.max) {
-      return Math.random() + options?.min;
+    function getNum() {
+      if (options?.min && !options.max) {
+        const min = Math.ceil(options.min);
+        return Math.floor(Math.random() * 10) + min;
+      }
+
+      if (options?.max && !options.min) {
+        return options.max - Math.random();
+      }
+
+      if (options?.min && options.max) {
+        return Math.random() * (options.max - options.min) + options.min;
+      }
+
+      return Math.random();
     }
 
-    if (options?.max && !options?.min) {
-      return options?.max - Math.random();
-    }
+    if (options?.excludes && options.excludes.length > 0) {
+      let num = getNum();
 
-    if (options?.min && options?.max) {
-      return Math.random() * (options?.max - options?.min) + options?.min;
-    }
+      while (options.excludes.includes(num)) {
+        num = getNum();
+      }
 
-    return Math.random();
+      return num;
+    } else {
+      return getNum();
+    }
   }
 }
 
 interface RandomNumberOptions {
   min?: number;
   max?: number;
+  excludes?: number[];
+  int?: boolean;
 }
 
 interface RandomArrayOptions<T> {
