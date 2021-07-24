@@ -89,13 +89,13 @@ describe('RotateService', () => {
       Random.array({
         of: () =>
           Random.array({
-            of: () => Random.number({ max: -1000 }),
+            of: () => Random.number({ max: -999 }),
           }),
       }),
       Random.array({
         of: () =>
           Random.array({
-            of: () => Random.number({ min: 1000 }),
+            of: () => Random.number({ min: 1001 }),
           }),
       }),
     ];

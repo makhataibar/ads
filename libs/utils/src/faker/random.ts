@@ -1,4 +1,5 @@
 import { isUndefined } from 'lodash';
+import { datatype } from 'faker';
 
 export class Random {
   /**
@@ -32,20 +33,23 @@ export class Random {
 
   static number(options?: RandomNumberOptions): number {
     function getNum() {
-      if (options?.min && !options.max) {
-        const min = Math.ceil(options.min);
-        return Math.floor(Math.random() * 10) + min;
+      let num = datatype.number({
+        min:
+          options?.min === undefined && options?.max !== undefined
+            ? options.max - 1000
+            : options?.min,
+        max: options?.max,
+      });
+
+      if (options?.isEven && num % 2 !== 0) {
+        num = Math.floor(num / 2) * 2;
       }
 
-      if (options?.max && !options.min) {
-        return options.max - Math.random();
+      if (options?.isOdd && num % 2 === 0) {
+        num = getNum();
       }
 
-      if (options?.min && options.max) {
-        return Math.random() * (options.max - options.min) + options.min;
-      }
-
-      return Math.random();
+      return num;
     }
 
     if (options?.excludes && options.excludes.length > 0) {
@@ -56,9 +60,9 @@ export class Random {
       }
 
       return num;
-    } else {
-      return getNum();
     }
+
+    return getNum();
   }
 }
 
@@ -66,6 +70,8 @@ interface RandomNumberOptions {
   min?: number;
   max?: number;
   excludes?: number[];
+  isEven?: boolean;
+  isOdd?: boolean;
 }
 
 interface RandomArrayOptions<T> {
