@@ -1,5 +1,6 @@
 import * as yup from 'yup';
-import { pipe, intersection as _intersection } from '@ads/utils';
+import { intersection as _intersection } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = { nums1: number[]; nums2: number[] };
 export type Output = number[];
@@ -28,4 +29,4 @@ function main({ nums1, nums2 }: Input): Output {
   return _intersection(nums1, nums2);
 }
 
-export const intersection = pipe<Input, Output>(checkConstraints, main);
+export const intersection = pipe(checkConstraints, main);

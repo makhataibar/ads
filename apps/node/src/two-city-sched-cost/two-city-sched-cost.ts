@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { pipe } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = number[][];
 export type Output = number;
@@ -40,4 +40,4 @@ function main(costs: Input): Output {
   );
 }
 
-export const twoCitySchedCost = pipe<Input, Output>(checkConstraints, main);
+export const twoCitySchedCost = pipe(checkConstraints, main);

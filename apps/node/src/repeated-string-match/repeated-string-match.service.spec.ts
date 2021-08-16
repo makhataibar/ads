@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import type { Input, Output } from './repeated-string-match';
+import type { Input } from './repeated-string-match';
 import { RepeatedStringMatchService } from './repeated-string-match.service';
 import { random } from 'faker';
 
@@ -21,46 +21,34 @@ describe('RepeatedStringMatchService', () => {
   });
 
   it('Example 1', () => {
-    const input: Input = ['abcd', 'cdabcdab'];
-    const output: Output = 3;
-
-    expect(service.run(...input)).toBe(output);
+    expect(service.run({ a: 'abcd', b: 'cdabcdab' })).toBe(3);
   });
 
   it('Example 2', () => {
-    const input: Input = ['a', 'aa'];
-    const output: Output = 2;
-
-    expect(service.run(...input)).toBe(output);
+    expect(service.run({ a: 'a', b: 'aa' })).toBe(2);
   });
 
   it('Example 3', () => {
-    const input: Input = ['a', 'a'];
-    const output: Output = 1;
-
-    expect(service.run(...input)).toBe(output);
+    expect(service.run({ a: 'a', b: 'a' })).toBe(1);
   });
 
   it('Example 4', () => {
-    const input: Input = ['abc', 'wxyz'];
-    const output: Output = -1;
-
-    expect(service.run(...input)).toBe(output);
+    expect(service.run({ a: 'abc', b: 'wxyz' })).toBe(-1);
   });
 
   it('Constraints', () => {
     const inputs: Input[] = [
-      ['', ''],
-      [random.alpha({ count: Math.pow(10, 4) + 1 }), ''],
-      ['a', ''],
-      ['a', random.alpha({ count: Math.pow(10, 4) + 1 })],
-      ['A', ''],
-      ['', 'Я'],
+      { a: '', b: '' },
+      { a: random.alpha({ count: Math.pow(10, 4) + 1 }), b: '' },
+      { a: 'a', b: '' },
+      { a: 'a', b: random.alpha({ count: Math.pow(10, 4) + 1 }) },
+      { a: 'A', b: '' },
+      { a: '', b: 'Я' },
     ];
 
     inputs.forEach((input) => {
       expect(() => {
-        service.run(...input);
+        service.run(input);
       }).toThrowError();
     });
   });

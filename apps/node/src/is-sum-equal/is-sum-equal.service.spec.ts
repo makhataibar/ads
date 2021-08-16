@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { IsSumEqualService } from './is-sum-equal.service';
-import { Input, Output} from './is-sum-equal'
+import { Input } from './is-sum-equal';
 
 describe('IsSumEqualService', () => {
   let service: IsSumEqualService;
@@ -17,39 +17,43 @@ describe('IsSumEqualService', () => {
     expect(service).toBeDefined();
   });
 
-  it('Example 1', ()=>{
-    const input: Input = ["acb","cba", "cdb"];
-    const output: Output = true;
+  it('Example 1', () => {
+    expect(
+      service.run({ firstWord: 'acb', secondWord: 'cba', targetWord: 'cdb' })
+    ).toBe(true);
+  });
 
-    expect(service.run(...input)).toBe(output);
-  })
+  it('Example 2', () => {
+    expect(
+      service.run({ firstWord: 'aaa', secondWord: 'a', targetWord: 'aab' })
+    ).toBe(false);
+  });
 
-  it('Example 2', ()=>{
-    const input: Input = ["aaa","a", "aab"];
-    const output: Output = false;
+  it('Example 3', () => {
+    expect(
+      service.run({ firstWord: 'aaa', secondWord: 'a', targetWord: 'aaaa' })
+    ).toBe(true);
+  });
 
-    expect(service.run(...input)).toBe(output);
-  })
-
-  it('Example 3', ()=>{
-    const input: Input = ["aaa","a", "aaaa"];
-    const output: Output = true;
-
-    expect(service.run(...input)).toBe(output);
-  })
-
-  it('Constraints', ()=>{
+  it('Constraints', () => {
     const inputs: Input[] = [
-      ["", "a", "aa"],
-      ['a', '', 'aa'],
-      ['a', 'a', Array.from(Array(9), ()=>'a').join('')],
-      ['A', 'a', 'aa'],
-      ['a', 'k', 'aa'],
-      ['a', 'a', 'l']
+      { firstWord: '', secondWord: 'a', targetWord: 'aa' },
+      { firstWord: 'a', secondWord: '', targetWord: 'aa' },
+      { firstWord: 'a', secondWord: '', targetWord: 'aa' },
+      {
+        firstWord: 'a',
+        secondWord: 'a',
+        targetWord: Array.from(Array(9), () => 'a').join(''),
+      },
+      { firstWord: 'A', secondWord: 'a', targetWord: 'aa' },
+      { firstWord: 'A', secondWord: 'k', targetWord: 'aa' },
+      { firstWord: 'a', secondWord: 'a', targetWord: 'l' },
     ];
 
-    for (const input of inputs){
-      expect(()=>{service.run(...input)}).toThrowError();
-    }
-  })
+    inputs.forEach((input) => {
+      expect(() => {
+        service.run(input);
+      }).toThrowError();
+    });
+  });
 });

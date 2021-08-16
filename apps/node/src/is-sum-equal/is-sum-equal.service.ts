@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Input, isSumEqual, Output } from './is-sum-equal';
+import { Input, isSumEqual } from './is-sum-equal';
 
 @Injectable()
 export class IsSumEqualService {
-  run(...args: Input): Output {
-    return isSumEqual(...args);
-  }
+  run = (input: Input) => isSumEqual(input);
 }

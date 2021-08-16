@@ -1,5 +1,6 @@
 import * as yup from 'yup';
-import { pipe, rotateMatrix } from '@ads/utils';
+import { rotateMatrix } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = number[][];
 export type Output = void;
@@ -29,4 +30,4 @@ function main(matrix: Input): Output {
   });
 }
 
-export const rotate = pipe<Input, Output>(checkConstraints, main);
+export const rotate = pipe(checkConstraints, main);

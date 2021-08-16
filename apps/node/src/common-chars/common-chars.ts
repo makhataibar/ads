@@ -1,5 +1,6 @@
 import * as yup from 'yup';
-import { intersection, pipe } from '@ads/utils';
+import { intersection } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = string[];
 export type Output = string[];
@@ -24,4 +25,4 @@ function main(words: Input): Output {
   }, []);
 }
 
-export const commonChars = pipe<Input, Output>(checkConstraints, main);
+export const commonChars = pipe(checkConstraints, main);

@@ -1,27 +1,22 @@
-import { compose } from '@ads/utils';
+import { pipe } from 'rxjs';
+import * as yup from 'yup';
 
-export type Input = [string, string];
+export type Input = { a: string; b: string };
 export type Output = number;
 
-function checkConstraints(...[a, b]: Input): void {
-  if (!(1 <= a.length) || !(a.length <= Math.pow(10, 4))) {
-    throw new Error('1 <= a.length <= 10^4');
-  }
-
-  if (!(1 <= b.length) || !(b.length <= Math.pow(10, 4))) {
-    throw new Error('1 <= b.length <= 10^4');
-  }
-
+function checkConstraints(input: Input): Input {
   const re = new RegExp('[a-z]');
-  if (!re.test(a) || !re.test(b)) {
-    throw new Error('a and b consist of lower-case English letters');
-  }
+
+  return yup
+    .object({
+      a: yup.string().defined().min(1).max(Math.pow(10, 4)).matches(re),
+      b: yup.string().defined().min(1).max(Math.pow(10, 4)).matches(re),
+    })
+    .defined()
+    .validateSync(input);
 }
 
-/*
-    Repeated String Match
-*/
-function main(...[a, b]: Input): Output {
+function main({ a, b }: Input): Output {
   let aFillLength: number =
     b.length / a.length <= 1 ? 1 : Math.ceil(b.length / a.length);
 
@@ -38,7 +33,4 @@ function main(...[a, b]: Input): Output {
   return -1;
 }
 
-export const repeatedStringMatch = compose<Input, Output>(
-  checkConstraints,
-  main
-);
+export const repeatedStringMatch = pipe(checkConstraints, main);

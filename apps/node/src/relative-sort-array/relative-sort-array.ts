@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { pipe } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = { arr1: number[]; arr2: number[] };
 export type Output = number[];
@@ -56,4 +56,4 @@ function main({ arr1, arr2 }: Input): Output {
   return result;
 }
 
-export const relativeSortArray = pipe<Input, Output>(checkConstraints, main);
+export const relativeSortArray = pipe(checkConstraints, main);

@@ -1,5 +1,6 @@
 import * as yup from 'yup';
-import { pipe, rotateMatrix } from '@ads/utils';
+import { rotateMatrix } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = { mat: number[][]; target: number[][] };
 export type Output = boolean;
@@ -66,4 +67,4 @@ function main({ mat, target }: Input): Output {
   return false;
 }
 
-export const findRotation = pipe<Input, Output>(checkConstraints, main);
+export const findRotation = pipe(checkConstraints, main);

@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { pipe } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = {
   boxTypes: number[][];
@@ -38,4 +38,4 @@ function main({ boxTypes, truckSize }: Input): Output {
     }, 0);
 }
 
-export const maximumUnits = pipe<Input, Output>(checkConstraints, main);
+export const maximumUnits = pipe(checkConstraints, main);

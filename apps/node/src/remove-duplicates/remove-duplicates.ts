@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { isEqual } from 'lodash';
-import { pipe } from '@ads/utils';
+import { pipe } from 'rxjs';
 
 export type Input = number[];
 export type Output = number;
@@ -27,4 +27,4 @@ function main(nums: Input): Output {
   return nums.length;
 }
 
-export const removeDuplicates = pipe<Input, Output>(checkConstraints, main);
+export const removeDuplicates = pipe(checkConstraints, main);
