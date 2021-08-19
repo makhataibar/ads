@@ -1,5 +1,6 @@
 import { isUndefined } from 'lodash';
 import { datatype } from 'faker';
+import * as RandExp from 'randexp';
 
 export class Random {
   /**
@@ -64,6 +65,23 @@ export class Random {
 
     return getNum();
   }
+
+  static string({ length = 10, pattern }: RandomStringOptions = {}): string {
+    if (pattern) {
+      const regExp = new RegExp(`${pattern.source}{${length}}`);
+      const randExp = new RandExp(regExp);
+      randExp.defaultRange.add(0, 65535);
+
+      return randExp.gen();
+    }
+
+    return datatype.string(length);
+  }
+}
+
+export interface RandomStringOptions {
+  length?: number;
+  pattern?: RegExp;
 }
 
 interface RandomNumberOptions {
