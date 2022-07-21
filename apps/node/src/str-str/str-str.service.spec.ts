@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { StrStrService } from './str-str.service';
 import { Input, Output } from './str-str';
-import { random } from 'faker';
-import { lorem as ruLorem } from 'faker/locale/ru';
+import { faker } from '@faker-js/faker/locale/ru';
 
 describe('StrStrService', () => {
   let service: StrStrService;
@@ -43,15 +42,15 @@ describe('StrStrService', () => {
   it('Constraints', () => {
     const inputs: Input[] = [
       {
-        haystack: random.alpha({ count: 5 * Math.pow(10, 4) + 1 }),
-        needle: random.alpha(),
+        haystack: faker.random.alpha({ count: 5 * Math.pow(10, 4) + 1 }),
+        needle: faker.random.alpha(),
       },
       {
-        haystack: random.alpha(),
-        needle: random.alpha({ count: 5 * Math.pow(10, 4) + 1 }),
+        haystack: faker.random.alpha(),
+        needle: faker.random.alpha({ count: 5 * Math.pow(10, 4) + 1 }),
       },
-      { haystack: ruLorem.word(), needle: random.alpha() },
-      { haystack: random.alpha(), needle: ruLorem.word() },
+      { haystack: faker.lorem.word(), needle: faker.random.alpha() },
+      { haystack: faker.random.alpha(), needle: faker.lorem.word() },
     ];
 
     inputs.forEach((input) => {

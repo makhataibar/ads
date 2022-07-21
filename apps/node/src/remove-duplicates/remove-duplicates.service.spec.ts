@@ -44,7 +44,6 @@ describe('RemoveDuplicatesService', () => {
     inputs.forEach((input) => {
       expect(() => {
         service.run(input);
-        console.log(input);
       }).toThrowError();
     });
   });

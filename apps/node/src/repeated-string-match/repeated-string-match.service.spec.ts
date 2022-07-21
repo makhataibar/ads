@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import type { Input } from './repeated-string-match';
 import { RepeatedStringMatchService } from './repeated-string-match.service';
-import { random } from 'faker';
+import { faker } from '@faker-js/faker';
 
 describe('RepeatedStringMatchService', () => {
   let service: RepeatedStringMatchService;
@@ -39,9 +39,9 @@ describe('RepeatedStringMatchService', () => {
   it('Constraints', () => {
     const inputs: Input[] = [
       { a: '', b: '' },
-      { a: random.alpha({ count: Math.pow(10, 4) + 1 }), b: '' },
+      { a: faker.random.alpha({ count: Math.pow(10, 4) + 1 }), b: '' },
       { a: 'a', b: '' },
-      { a: 'a', b: random.alpha({ count: Math.pow(10, 4) + 1 }) },
+      { a: 'a', b: faker.random.alpha({ count: Math.pow(10, 4) + 1 }) },
       { a: 'A', b: '' },
       { a: '', b: 'Я' },
     ];

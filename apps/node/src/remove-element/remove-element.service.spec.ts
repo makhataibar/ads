@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RemoveElementService } from './remove-element.service';
 import { Input } from './remove-element';
-import { datatype } from 'faker';
+import { faker } from '@faker-js/faker';
 import { Random } from '@ads/utils';
 
 describe('RemoveElementService', () => {
@@ -36,23 +36,23 @@ describe('RemoveElementService', () => {
   it('Constraints', function () {
     const inputs: Input[] = [
       {
-        nums: Random.array({ of: datatype.number, length: 1000 }),
-        val: datatype.number(),
+        nums: Random.array({ of: faker.datatype.number, length: 1000 }),
+        val: faker.datatype.number(),
       },
       {
-        nums: Random.array({ of: () => datatype.number({ max: -1 }) }),
-        val: datatype.number(),
+        nums: Random.array({ of: () => faker.datatype.number({ max: 0 }) }),
+        val: faker.datatype.number(),
       },
       {
-        nums: Random.array({ of: () => datatype.number({ min: 51 }) }),
-        val: datatype.number(),
+        nums: Random.array({ of: () => faker.datatype.number({ min: 51 }) }),
+        val: faker.datatype.number(),
       },
       {
-        nums: Random.array({ of: datatype.number }),
+        nums: Random.array({ of: faker.datatype.number }),
         val: -1,
       },
       {
-        nums: Random.array({ of: datatype.number }),
+        nums: Random.array({ of: faker.datatype.number }),
         val: 101,
       },
     ];

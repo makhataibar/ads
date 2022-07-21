@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ShortestPalindromeService } from './shortest-palindrome.service';
 import { Input } from './shortest-palindrome';
-import { random } from 'faker';
-import { lorem as ruLorem } from 'faker/locale/ru';
+import { faker } from '@faker-js/faker/locale/ru';
 
 describe('ShortestPalindromeService', () => {
   let service: ShortestPalindromeService;
@@ -21,7 +20,6 @@ describe('ShortestPalindromeService', () => {
   afterEach(() => {
     const resultTime = performance.now() - time;
     expect(resultTime).toBeLessThan(Math.pow(10, 4));
-    console.log(resultTime, 'ms');
   });
 
   it('should be defined', () => {
@@ -56,8 +54,8 @@ describe('ShortestPalindromeService', () => {
 
   it('Constraints', () => {
     const inputs: Input[] = [
-      random.alpha({ count: 5 * Math.pow(10, 4) + 1 }),
-      ruLorem.word(),
+      faker.random.alpha({ count: 5 * Math.pow(10, 4) + 1 }),
+      faker.lorem.word(),
     ];
 
     inputs.forEach((input) => {

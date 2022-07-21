@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RepeatedSubstringPatternService } from './repeated-substring-pattern.service';
-import { random } from 'faker';
-import { lorem as ruLorem } from 'faker/locale/ru';
+import { faker } from '@faker-js/faker/locale/ru';
 import { Input } from './repeated-substring-pattern';
 
 describe('RepeatedSubstringPatternService', () => {
@@ -36,8 +35,8 @@ describe('RepeatedSubstringPatternService', () => {
   it('Constraints', () => {
     const inputs: Input[] = [
       '',
-      random.alpha({ count: Math.pow(10, 4) + 1 }),
-      ruLorem.word(),
+      faker.random.alpha({ count: Math.pow(10, 4) + 1 }),
+      faker.lorem.word(),
     ];
 
     inputs.forEach((input) => {

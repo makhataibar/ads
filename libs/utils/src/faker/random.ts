@@ -1,5 +1,5 @@
 import { isUndefined } from 'lodash';
-import { datatype } from 'faker';
+import { faker } from '@faker-js/faker';
 import * as RandExp from 'randexp';
 
 export class Random {
@@ -34,7 +34,7 @@ export class Random {
 
   static number(options?: RandomNumberOptions): number {
     function getNum() {
-      let num = datatype.number({
+      let num = faker.datatype.number({
         min:
           options?.min === undefined && options?.max !== undefined
             ? options.max - 1000
@@ -75,7 +75,7 @@ export class Random {
       return randExp.gen();
     }
 
-    return datatype.string(length);
+    return faker.datatype.string(length);
   }
 }
 

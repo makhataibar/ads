@@ -1,12 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LongestPalindromeService } from './longest-palindrome.service';
 import { Input } from './longest-palindrome';
-import { datatype } from 'faker';
-import { lorem as loremRu } from 'faker/locale/ru';
+import { faker } from '@faker-js/faker/locale/ru';
 
 describe('LongestPalindromeService', () => {
   let service: LongestPalindromeService;
-  let startTime: number;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -14,13 +12,6 @@ describe('LongestPalindromeService', () => {
     }).compile();
 
     service = module.get<LongestPalindromeService>(LongestPalindromeService);
-
-    startTime = performance.now();
-  });
-
-  afterEach(() => {
-    const resultTime = performance.now() - startTime;
-    console.log(resultTime, 'ms');
   });
 
   it('should be defined', () => {
@@ -54,7 +45,11 @@ describe('LongestPalindromeService', () => {
   });
 
   it('Constraints', () => {
-    const inputs: Input[] = ['', datatype.string(10000), loremRu.word()];
+    const inputs: Input[] = [
+      '',
+      faker.datatype.string(10000),
+      faker.lorem.word(),
+    ];
 
     inputs.forEach((input) => {
       expect(() => service.run(input)).toThrowError();
